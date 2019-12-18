@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
+import NextHead from "../layout/head"
 import { connect } from 'react-redux';
 import styles from '../less/App.less';
 import { Button, Icon, Row, Col, Layout } from 'antd';
@@ -59,13 +60,14 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <>
+      <NextHead></NextHead>
         <div className={styles.App} style={{ right: this.state.sidebar ? '160px' : '0px', width: '100%' }}>
             <Head></Head>
             <div className={styles.main}>
               <Row type="flex" justify="center">
               <Col md={14} sm={24} xs={24}>
-                <children></children>
+                {children}
                 </Col>
               </Row>
             </div>
@@ -77,7 +79,7 @@ class App extends Component {
         <div className={styles.control} onClick={this.handleClick}>
           {button}
         </div>
-      </div>
+        </>
     );
   }
 }

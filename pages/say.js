@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './index.scss';
+import styles from '../less/say.less';
 import { Timeline, Button } from 'antd';
+import App from "../components/App"
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-class App extends Component {
+class Say extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +37,7 @@ class App extends Component {
   render() {
     const list = this.props.says.list || []
     return (
-      <div>
+      <App>
         <Timeline pending="Recording...">
           {list.map((x, index) =>
             <Timeline.Item key={index}>
@@ -49,9 +50,9 @@ class App extends Component {
             </Timeline.Item>
           )}
         </Timeline>
-      </div>
+      </App>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Say)

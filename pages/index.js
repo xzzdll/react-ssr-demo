@@ -1,4 +1,3 @@
-import Head from "../layout/head"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { getVisitorMount } from "../service/api.js";
@@ -14,7 +13,6 @@ const home = ({ count }) => {
   }, [])
 
   return <>
-    <Head></Head>
     <App>
         <HomeView></HomeView>
     </App>
