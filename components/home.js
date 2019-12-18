@@ -1,82 +1,58 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../less/home.less';
-// import Button from 'antd/lib/button';
-import { Button, Pagination } from 'antd';
+import { Pagination } from 'antd';
+import Router from 'next/router'
+import { articals as getarticals } from "../service/api"
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    articals: state.articals ? state.articals : {}
-  }
-}
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    fetchList: (value) => {
-      dispatch({ type: 'articals:fetchList', payload: value })
-    }
-  }
-}
+const home = () => {
+  const { list = [], totalRows = 0 } = useSelector(state => state.articals)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const dispatch = useDispatch()
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1,
-      pageSize: 10
-    }
+  const onShowSizeChange = (current, size) => {
+    setCurrentPage(current)
+    setPageSize(size)
   }
 
-  fetchList = () => {
-    this.props.fetchList({
-      currentPage: this.state.currentPage,
-      pageSize: this.state.pageSize
-    })
+  const showDetail = (id) => {
+    Router.push(`/detail/${id}`)
   }
 
-  showDetail = (id) => {
-    this.props.history.push(`/detail/${id}`)
-  }
+  useEffect(() => {
+    (async () => {
+      const articalsList = await getarticals({
+        currentPage,
+        pageSize
+      })
+      dispatch({ type: "articals:set", payload: articalsList })
+    })()
+  }, [currentPage,
+    pageSize])
 
-  componentDidMount() {
-    this.fetchList()
-  }
-
-  onShowSizeChange = (current, pageSize) => {
-    this.setState({
-      currentPage: current,
-      pageSize
-    }, () => {
-      // window.scrollTo(0,0)
-      this.fetchList()
-    });
-  }
-
-  render() {
-    const list = this.props.articals.list || []
-    const totalRows = this.props.articals.totalRows || 0
-    return (
-      <div className={styles.main}>
-        {list.map((x, index) =>
-          <div className={styles.articalCard} key={index}>
-            <div className={styles.articalCardTitle}>{x.title}</div>
-            <div className={styles.articalCardSubTitle}>
-              <span>发表于:{x.date}</span>
-              <span>标签:{x.type}</span>
-              <span>浏览:{x.times}</span>
-            </div>
-            <div className={styles.articalCardBody} dangerouslySetInnerHTML={{ __html: x.content }}>
-            </div>
-            <div>....</div>
-            <div className={styles.articalCardfoot} onClick={(e) => this.showDetail(x._id, e)}>
-              <span>阅读全文 > ></span>
-            </div>
+  return (
+    <div className={styles.main}>
+      {list.map((x, index) =>
+        <div className={styles.articalCard} key={index}>
+          <div className={styles.articalCardTitle}>{x.title}</div>
+          <div className={styles.articalCardSubTitle}>
+            <span>发表于:{x.date}</span>
+            <span>标签:{x.type}</span>
+            <span>浏览:{x.times}</span>
           </div>
-        )}
-        <Pagination showSizeChanger onChange={this.onShowSizeChange} onShowSizeChange={this.onShowSizeChange} defaultCurrent={this.state.currentPage} total={totalRows} />
-      </div>
-    );
-  }
+          <div className={styles.articalCardBody} dangerouslySetInnerHTML={{ __html: x.content }}>
+          </div>
+          <div>....</div>
+          <div className={styles.articalCardfoot} onClick={(e) => showDetail(x._id, e)}>
+            <span>阅读全文 > ></span>
+          </div>
+        </div>
+      )}
+      <Pagination showSizeChanger onChange={onShowSizeChange} onShowSizeChange={onShowSizeChange} defaultCurrent={currentPage} total={totalRows} />
+    </div>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default home
