@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './index.scss';
+import styles from '../less/artical.less';
 import Button from 'antd/lib/button';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './index.scss';
-import logo from './20180828144419.jpg';
+import styles from './index.less';
+// import logo from '../../static/20180828144419.jpg';
 import { Menu, Icon, Row, Col } from 'antd';
-import { Router, Route, Redirect, IndexRoute, Link } from "react-router-dom";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -45,7 +44,7 @@ class Head extends React.Component {
         return (
             <div className={styles.sideBar}>
                 <div className={styles.card} style={{ height: '300px' }}>
-                    <img src={logo} alt="" />
+                    <img src='/static/20180828144419.jpg' alt="" />
                     <div className={styles.word}>
                         <p className={styles.title}>xzzdll</p>
                         <p> 前端打字员</p>

@@ -1,8 +1,9 @@
-import css from "../less/index.less"
 import Head from "../layout/head"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { getVisitorMount } from "../service/api.js";
+import App from "../components/App"
+import HomeView from "../components/home"
 
 const home = ({ count }) => {
   const visitors = useSelector(state => state.visitors)
@@ -14,7 +15,10 @@ const home = ({ count }) => {
 
   return <>
     <Head></Head>
-    <div className={css.example}>Welcome to next.js!{visitors}</div>
+    <App>
+        <HomeView></HomeView>
+    </App>
+    {/* <div className={css.example}>Welcome to next.js!{visitors}</div> */}
   </>
 }
 
