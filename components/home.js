@@ -6,8 +6,9 @@ import Router from 'next/router'
 import { articals as getarticals } from "../service/api"
 
 
-const home = () => {
-  const { list = [], totalRows = 0 } = useSelector(state => state.articals)
+const home = ({ articals = {} }) => {
+  // const { list = [], totalRows = 0 } = useSelector(state => state.articals)
+  const { list = [], totalRows = 0 } = articals
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const dispatch = useDispatch()
@@ -22,13 +23,14 @@ const home = () => {
   }
 
   useEffect(() => {
-    (async () => {
-      const articalsList = await getarticals({
-        currentPage,
-        pageSize
-      })
-      dispatch({ type: "articals:set", payload: articalsList })
-    })()
+    // (async () => {
+    //   const articalsList = await getarticals({
+    //     currentPage,
+    //     pageSize
+    //   })
+    //   dispatch({ type: "articals:set", payload: articalsList })
+    // })()
+    Router.push(`/index?currentPage=${currentPage}&&pageSize=${pageSize}`)
   }, [currentPage,
     pageSize])
 
@@ -54,5 +56,20 @@ const home = () => {
     </div>
   );
 }
+
+// home.getInitialProps = async ({ req, query }) => {
+//   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
+
+//   const {
+//     currentPage = 1, pageSize = 10,
+//   } = query
+
+//   const articals = await getarticals({
+//     currentPage,
+//     pageSize
+//   })
+
+//   return { userAgent, articals }
+// }
 
 export default home
