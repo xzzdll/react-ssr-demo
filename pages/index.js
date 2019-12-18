@@ -1,4 +1,4 @@
-import css from "./index.less"
+import css from "../less/index.less"
 import Head from "../layout/head"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
