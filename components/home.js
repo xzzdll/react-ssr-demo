@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../less/home.less';
 import { Pagination } from 'antd';
 import Router from 'next/router'
-import { articals as getarticals } from "../service/api"
 
 
 const home = ({ articals = {} }) => {
