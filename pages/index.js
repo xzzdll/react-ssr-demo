@@ -1,6 +1,3 @@
-import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { getVisitorMount } from "../service/api.js";
 import App from "../components/App"
 import HomeView from "../components/home"
 import { articals as getarticals } from "../service/api"
@@ -14,10 +11,6 @@ const home = ({ articals }) => {
 }
 
 home.getInitialProps = async ({ req, query }) => {
-  // if (typeof window !== 'undefined') {
-  //   return;
-  //  }
-
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
 
   const {

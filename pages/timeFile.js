@@ -1,60 +1,44 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import styles from '../less/time.less';
-import { Timeline, Button } from 'antd';
+import { Timeline } from 'antd';
 import App from "../components/App"
+import { articals as getarticals } from "../service/api"
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    articals: state.articals ? state.articals : {}
-  }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    fetchList: (value) => {
-      dispatch({ type: 'articals:fetchList', payload: value })
-    }
-  }
-}
-
-class TimeFile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
-  fetchList = () => {
-    this.props.fetchList()
-  }
-
-  componentDidMount() {
-    this.fetchList()
-  }
-
-
-  render() {
-    const list = this.props.articals.list || []
-    return (
-      <App>
-        <Timeline pending="Recording...">
-          {list.map((x, index) =>
-            <Timeline.Item key={index}>
-              <div className={styles.articalCard}>
-            <div className={styles.articalCardDate}>
-              {x.date}
+const TimeFile = ({ articals }) => {
+  const list = articals.list || []
+  return (
+    <App>
+      <Timeline pending="Recording...">
+        {list.map((x, index) =>
+          <Timeline.Item key={index}>
+            <div className={styles.articalCard}>
+              <div className={styles.articalCardDate}>
+                {x.date}
+              </div>
+              <div className={styles.articalCardBody}>
+                {x.title}
+              </div>
             </div>
-            <div className={styles.articalCardBody}>
-              {x.title}
-            </div>
-          </div>
-            </Timeline.Item>
-          )}
-        </Timeline>
-      </App>
-    );
-  }
+          </Timeline.Item>
+        )}
+      </Timeline>
+    </App>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimeFile)
+TimeFile.getInitialProps = async ({ req, query }) => {
+  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
+
+  const {
+    currentPage = 1, pageSize = 10,
+  } = query
+
+  const articals = await getarticals({
+    currentPage,
+    pageSize
+  })
+
+  return { userAgent, articals }
+}
+
+export default TimeFile
