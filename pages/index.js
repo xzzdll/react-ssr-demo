@@ -6,22 +6,18 @@ import HomeView from "../components/home"
 import { articals as getarticals } from "../service/api"
 
 const home = ({ articals }) => {
-  // const visitors = useSelector(state => state.visitors)
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch({ type: 'visitors:set', payload: count })
-  // }, [])
-
   return <>
     <App>
       <HomeView articals={articals}></HomeView>
     </App>
-    {/* <div className={css.example}>Welcome to next.js!{visitors}</div> */}
   </>
 }
 
-home.getInitialProps = async ({ req,query }) => {
+home.getInitialProps = async ({ req, query }) => {
+  // if (typeof window !== 'undefined') {
+  //   return;
+  //  }
+
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
 
   const {
@@ -32,8 +28,6 @@ home.getInitialProps = async ({ req,query }) => {
     currentPage,
     pageSize
   })
-
-  // const { count } = await getVisitorMount()
 
   return { userAgent, articals }
 }

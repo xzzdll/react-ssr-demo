@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Blog: Node",
-      "program": "${workspaceFolder}/index",
+      "program": "${workspaceFolder}/server.js",
       "runtimeArgs": [
         "--inspect",
       ]

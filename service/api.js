@@ -2,16 +2,17 @@ import axios from 'axios';
 import qs from 'qs';
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 50000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-// axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = "http://47.98.115.136:3000";
+axios.defaults.baseURL = 'http://127.0.0.1:3000/';
+// axios.defaults.baseURL = "http://47.98.115.136:3000";
 axios.defaults.withCredentials = true;
 
 // POST传参序列化，请求拦截器
 axios.interceptors.request.use((config) => {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data);
+    console.log('传参为:', config.data)
   }
   return config;
 }, (error) => {
@@ -29,6 +30,7 @@ axios.interceptors.response.use((res) => {
 
 export default function fetch (url, params) {
   return new Promise((resolve, reject) => {
+    console.log('id=',params.id)
     axios.post(url, params)
       .then(response => {
         resolve(response.data);
@@ -44,7 +46,7 @@ export function says(){
   return fetch('say/list');
 }
 
-export function articals(data){
+export function articals(data) {
   return fetch('artical/list',data);
 }
 

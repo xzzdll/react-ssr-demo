@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import styles from '../less/home.less';
 import { Pagination } from 'antd';
 import Router from 'next/router'
 
 
 const home = ({ articals = {} }) => {
-  // const { list = [], totalRows = 0 } = useSelector(state => state.articals)
   const { list = [], totalRows = 0 } = articals
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  const dispatch = useDispatch()
 
   const onShowSizeChange = (current, size) => {
     setCurrentPage(current)
@@ -18,17 +16,10 @@ const home = ({ articals = {} }) => {
   }
 
   const showDetail = (id) => {
-    Router.push(`/detail/${id}`)
+    Router.push(`/detail?id=${id}`)
   }
 
   useEffect(() => {
-    // (async () => {
-    //   const articalsList = await getarticals({
-    //     currentPage,
-    //     pageSize
-    //   })
-    //   dispatch({ type: "articals:set", payload: articalsList })
-    // })()
     Router.push(`/index?currentPage=${currentPage}&&pageSize=${pageSize}`)
   }, [currentPage,
     pageSize])
@@ -55,20 +46,5 @@ const home = ({ articals = {} }) => {
     </div>
   );
 }
-
-// home.getInitialProps = async ({ req, query }) => {
-//   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-
-//   const {
-//     currentPage = 1, pageSize = 10,
-//   } = query
-
-//   const articals = await getarticals({
-//     currentPage,
-//     pageSize
-//   })
-
-//   return { userAgent, articals }
-// }
 
 export default home
