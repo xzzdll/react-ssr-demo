@@ -42,11 +42,6 @@ articalDetail.getInitialProps = async (ctx) => {
     id
   } = ctx.query
 
-  // const detail = await fetch('http://127.0.0.1:3000/artical/list', {
-  //   currentPage: 1,
-  //   pageSize: 10,
-  //   id})
-
   const detail = await getArticals({
     currentPage: 1,
     pageSize: 10,

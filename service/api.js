@@ -10,13 +10,8 @@ axios.defaults.withCredentials = true;
 
 // POST传参序列化，请求拦截器
 axios.interceptors.request.use((config) => {
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data);
-    console.log('传参为:', config.data)
-  }
   return config;
 }, (error) => {
-  console.log('错误的传参');
   return Promise.reject(error);
 });
 
@@ -30,7 +25,6 @@ axios.interceptors.response.use((res) => {
 
 export default function fetch (url, params) {
   return new Promise((resolve, reject) => {
-    console.log('id=',params.id)
     axios.post(url, params)
       .then(response => {
         resolve(response.data);
