@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { articalsLength, visitorsMount,children } = this.props
     let button = null;
     if (this.state.sidebar) {
       button = <Icon type="double-right" className={styles.icon} style={{ color: "#fff" }} />;
@@ -43,7 +43,7 @@ class App extends Component {
             <Foot></Foot>
         </div>
         <div className={styles.side} style={{ right: this.state.sidebar ? '0' : '-320px' }}>
-          <Siderbar></Siderbar>
+          <Siderbar articalsLength={articalsLength} visitorsMount={visitorsMount}></Siderbar>
         </div>
         <div className={styles.control} onClick={this.handleClick}>
           {button}

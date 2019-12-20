@@ -4,7 +4,7 @@ import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/monokai-sublime.css';
 import App from "../components/App"
-import { articals as getArticals } from "../service/api"
+import { getArticals } from "../service/api"
 
 const articalDetail = ({ detail }) => {
   const list = detail.list ? detail.list[0] : {}

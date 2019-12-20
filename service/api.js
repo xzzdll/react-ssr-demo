@@ -31,10 +31,10 @@ export default function fetch (url, params) {
 export function says(){
   return fetch('say/list');
 }
-export function articals(data) {
+export function getArticals(data) {
   return fetch('artical/list',data);
 }
-export function getVisitorMount(data){
-  return fetch('count/visitor',data);
+export function getVisitorMount(){
+  return fetch('count/visitor');
 }
 
