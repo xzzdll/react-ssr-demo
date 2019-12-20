@@ -4,25 +4,19 @@ import { Menu, Icon, Row, Col } from 'antd';
 import Router from 'next/router'
 
 class Head extends React.Component {
-  state = {
-    current: 'index',
+  constructor(props) {
+    super(props);
   }
-
   handleClick = (e) => {
-    this.setState({
-      current: e.key,
-    });
      Router.push(`/${e.key}`)
   }
 
   handleClick1 = () => {
-    this.setState({
-      current: 'index',
-    });
      Router.push('/index')
   }
 
   render() {
+    const pathname = this.props.pathname.replace('/','') || 'index'
     return (
       <div className={styles.head}>
         <Row type="flex" justify="center">
@@ -35,7 +29,7 @@ class Head extends React.Component {
           <Col className={styles.menu} md={10} xs={24} sm={24}>
             <Menu
               onClick={this.handleClick}
-              selectedKeys={[this.state.current]}
+              selectedKeys={pathname}
               mode="horizontal"
             >
               <Menu.Item key="index">

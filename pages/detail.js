@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styles from '../less/artical.less';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
-import 'highlight.js/styles/monokai-sublime.css';
 import App from "../components/App"
 import { getArticals } from "../service/api"
 
