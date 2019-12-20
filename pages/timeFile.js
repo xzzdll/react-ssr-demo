@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../less/time.less';
 import { Timeline } from 'antd';
 import App from "../components/App"
-import { articals as getarticals } from "../service/api"
+import { getArticals } from "../service/api"
 
 const TimeFile = ({ articals }) => {
   const list = articals.list || []
@@ -33,7 +33,7 @@ TimeFile.getInitialProps = async ({ req, query }) => {
     currentPage = 1, pageSize = 10,
   } = query
 
-  const articals = await getarticals({
+  const articals = await getArticals({
     currentPage,
     pageSize
   })
