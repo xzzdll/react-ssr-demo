@@ -16,7 +16,7 @@ class Head extends React.Component {
   }
 
   render() {
-    const pathname = this.props.pathname.replace('/','') || 'index'
+    const pathname = typeof window === 'undefined' ? 'index' : window.location.pathname.replace('/','') || 'index'
     return (
       <div className={styles.head}>
         <Row type="flex" justify="center">
