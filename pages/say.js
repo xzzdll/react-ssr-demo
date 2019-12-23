@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from '../less/say.less';
 import { Timeline } from 'antd';
 import App from "../components/App"
-import { says as getSays } from "../service/api"
+import baseInitialProps from "../InitialProps/baseInitialProps"
 
 const say = ({ says }) => {
   const list = says.list || []
@@ -24,12 +24,10 @@ const say = ({ says }) => {
   );
 }
 
-say.getInitialProps = async (ctx) => {
-  const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent
+say.getInitialProps = async ({ req, query}) => {
+  const { articals, visitors, userAgent } = await baseInitialProps(req, query)
 
-  const says = await getSays()
-
-  return { userAgent, says }
+  return { userAgent, visitors, articals, says }
 }
 
 export default say

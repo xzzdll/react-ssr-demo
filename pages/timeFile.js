@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../less/time.less';
 import { Timeline } from 'antd';
 import App from "../components/App"
-import { getArticals } from "../service/api"
+import baseInitialProps from "../InitialProps/baseInitialProps"
 
 const TimeFile = ({ articals }) => {
   const list = articals.list || []
@@ -27,18 +27,9 @@ const TimeFile = ({ articals }) => {
 }
 
 TimeFile.getInitialProps = async ({ req, query }) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
+  const { articals, visitors, userAgent } = await baseInitialProps(req, query)
 
-  const {
-    currentPage = 1, pageSize = 10,
-  } = query
-
-  const articals = await getArticals({
-    currentPage,
-    pageSize
-  })
-
-  return { userAgent, articals }
+  return { userAgent, visitors, articals }
 }
 
 export default TimeFile

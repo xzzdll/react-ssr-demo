@@ -3,7 +3,7 @@ import styles from '../less/artical.less';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import App from "../components/App"
-import { getArticals } from "../service/api"
+import baseInitialProps from "../InitialProps/baseInitialProps"
 
 const articalDetail = ({ detail }) => {
   const list = detail.list ? detail.list[0] : {}
@@ -34,20 +34,10 @@ const articalDetail = ({ detail }) => {
   );
 }
 
-articalDetail.getInitialProps = async (ctx) => {
-  const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent
+articalDetail.getInitialProps = async ({ req, query}) => {
+  const { articals:detail, visitors, userAgent } = await baseInitialProps(req, query)
 
-  const {
-    id
-  } = ctx.query
-
-  const detail = await getArticals({
-    currentPage: 1,
-    pageSize: 10,
-    id
-  })
-
-  return { userAgent, detail }
+  return { userAgent, visitors, detail, says }
 }
 
 export default articalDetail

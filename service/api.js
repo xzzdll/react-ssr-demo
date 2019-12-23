@@ -28,7 +28,7 @@ export default function fetch (url, params) {
       });
   });
 }
-export function says(){
+export function getSays(){
   return fetch('say/list');
 }
 export function getArticals(data) {

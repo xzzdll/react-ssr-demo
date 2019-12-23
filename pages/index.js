@@ -1,6 +1,6 @@
 import App from "../components/App"
 import HomeView from "../components/home"
-import { getArticals, getVisitorMount } from "../service/api"
+import baseInitialProps from "../InitialProps/baseInitialProps"
 
 const home = ({ articals, visitors, userAgent }) => {
   return <>
@@ -11,16 +11,7 @@ const home = ({ articals, visitors, userAgent }) => {
 }
 
 home.getInitialProps = async ({ req, query }) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-
-  const {
-    currentPage = 1, pageSize = 10,
-  } = query
-
-  const [articals, visitors] = await Promise.all([getArticals({
-    currentPage,
-    pageSize
-  }), getVisitorMount()])
+  const { articals, visitors, userAgent } = await baseInitialProps(req, query)
 
   return { articals, visitors, userAgent }
 }
